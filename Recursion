@@ -1,0 +1,113 @@
+Recursion can be difficult to understand. Recursive functions are used in place of a for loop when the number of iterations is 
+unknown and based upon the input arguments. Every recursion function can be written using iterative methods, however, recursions 
+can simplify a number of problems. 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+A recursive function consists of two parts:
+    1) Base case
+      --> This case that will terminate the function (signals that a solution has been found).
+    2) Recursive call to itself
+      --> There are direct and indirect ways to write a recursive call. Direct tend to be more practical. Examples of both types of 
+      calls are mentioned below.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      
+Simple example: Mike and Ike Stuffed Dolls
+
+Consider those weird dolls that contain each other. Within all those dolls are Mike and Ike's. I want those Mike 
+and Ike's. How many dolls must I remove to get the Mike and Ike's?!
+    
+    function weirdDolls (dolls) {
+        //base case
+          if (found Mike and Ike's) {
+            return count;
+          }
+          count += 1
+          weirdDolls(dolls - 1);
+    }
+    
+    let count = 0;
+    weirdDolls(dolls);
+    console.log(`I had to remove ${count} dolls just to get to those damn Mike and Ike's`);
+    
+So that example is easy to understand. Just assume we're throwing the whole set of dolls into the function. Each time we remove a 
+doll, we add one to the count. We then call the same function, throwing the set of dolls (excluding the one we removed) into the 
+same function to keep removing dolls. We do this until we find the Mike and Ike's, at that point the function is terminated and 
+count is returned.
+
+==================================================================================================================================
+
+Medium example: Gotta shake them hands
+Consider there are N number of people within a room. Every person within the room shakes hands with everybody else 
+in the room once. How many handshakes occur?
+
+    function handshakes (N) {
+        //base case
+        if (N == 1){
+          return count;
+        }
+        count += (N - 1);
+        handshakes (N - 1);
+    }
+    let count = 0;
+    handshakes(5);
+    console.log(`A total of ${count} handshakes were executed during this event`);
+    
+In this example, we begin with the Nth person. Say this is you. Well if there are 5 people in the room, you are going to shake 4 
+hands. Say your buddy is the (Nth - 1) person. He will also shake four hands, but he already shook yours-- so that's only 3 
+additional handshakes to add to the count. The (Nth - 2) person will add 2 additional handshakes, (Nth -3) person will add 1 and 
+finally, the (Nth - 4) person (person 1) will have shaken hands with everyone else so he will not add any additional handshakes. 
+That's how this function operates. It adds (N - 1) handshakes each time it is called and calls itself with the (N - 1) person each
+time until the last person. At that point, it terminates and returns the count. 
+
+==================================================================================================================================
+Hard example: Iterative Tower of Hanoi
+The Tower of Hanoi consists of three poles and a number of disks of different sizes which can slide onto any poles. The tower 
+starts with the disks in a neat stack in ascending order of size in one pole, the smallest at the top thus making a conical shape. 
+The objective is to move all the disks from one pole (say ‘source pole’) to another pole (say ‘destination pole’) with the help of 
+the third pole (say auxiliary pole). While doing this, you can’t place a larger disk onto a smaller disk and only one disk can be 
+moved at a time. Given n number of disks, how can we accomplish this feat?
+
+    function towerOfHanoi(n, source,  dest,  aux){
+        if (n == 0){
+            return;
+        }
+        
+        //move stack of n-1 to auxilary
+        towerOfHanoi(n-1, source, aux, dest);
+        
+        //move n to destination
+        console.log(`Move disk ${n} from ${source} to ${dest}`);
+        
+        //move stack of n-1 to dest
+        towerOfHanoi(n-1, aux, dest, source);
+    
+    }
+    
+    
+    towerOfHanoi(4,'S','D','A');
+    
+This example is harder to understand. However, if we focus on the bottom disk and orient our goals from their perspective it is 
+easier. Focus on the bottom disk. That disk must move to the destination-- in order to do that, the disks on top of it must be in 
+the auxilary stack. Knowing this, we call our function towerOfHanoi to move n-1 disks from the source to the auxilary. Once this 
+is done, we move the n disk to the destination and then move our n-1 stack from the auxilary pole to the destination pole by 
+calling towerOfHanoi again. This works because in every case-- the bottom disk needs the disks above it to move to a pole that is 
+not its "destination pole". While the poles are labeled 'S' 'D' and 'A', in each call to towerOfHanoi, whether or not a pole is a 
+destination pole, etc. is dependent upon the goals of that recursive call.
+
+If you are struggling with the example above I recommend viewing the following video: https://www.youtube.com/watch?v=2SUvWfNJSsM
+
+==================================================================================================================================
+
+FOUR STEPS TO SOLVE RECURSION PROBLEMS
+
+1) Ask yourself: What is the simplest possible input (if given this input, you can solve the problem mentally)? THIS IS BASE CASE!
+2) Relate hard cases to simple cases-- if I was given the answer the n-1 case could I solve the n case?
+3) Generalize the pattern used to get the n case from the n-1 case.
+4) Write code by combining the recursive pattern with the base case.
+
+
+          
+     
+          
+          
+          
