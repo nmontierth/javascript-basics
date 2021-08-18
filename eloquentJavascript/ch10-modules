@@ -1,1 +1,23 @@
+Programs grow organically-- new pieces of functionality are continually added as new needs come up. Because of this, structure is 
+extremely important. Without structure, one must have knowledge of the system as a whole in order to understand it and make changes 
+to it. Modules provide structure to a program. Relationships between modules are referred to as dependencies.
 
+PACKAGES
+  A chunk of code that can be distributed (copied and installed). When a problem is found or features are added, packes need to be 
+  updated. This requires infrastructure that can keep up with necessary upgrades across multiple packages. NPM provides this 
+  infrastructure.
+  
+  NPM-- two things
+    1) an online service to download and upload packages
+    2) a program (bundled with Node.js) that helps to install and manage packages
+    
+  By default-- you own the copyright to any code that you right. However, most packages are published under a license that explicitly 
+  allows other people to use it. Some licenses require that you publish any code that is built on top of the package under that same 
+  license. BE AWARE OF LICENSES WHEN USING OTHER'S CODE!
+
+IMPROVISED MODULES
+  Modules can be designed on top of the JS language by using functions to create local scopes and objects to represent module 
+  interfaces. This makes sense. THe object gives you access to different parts of the modules and the function ensures scope is 
+  contained within the modules and doesn't spill into someone's code.
+  
+  
