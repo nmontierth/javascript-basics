@@ -1,0 +1,22 @@
+Scopes are super important to understanding Javascript and what to expect when calling and declaring variables in different 
+instances.
+
+Javascript is a lexical scoped program-- this means that the accessibility of variables is dependent upon where they are written 
+in your code.
+
+So what is scope?
+  Scope is all about variables and where they can be accessed. Scope is important as without it-- the availability of names by 
+  which to declare variables would be extremely crowded.
+  
+Javascript has 3 types of scope:
+  Global scope-- A variable that is defined with a global scope can be accessed throughout the entirety of a program.
+  Function scope-- A variable defined with a function scope can only be accessed within the function within which it is defined.
+  Block scope-- A variable defined with a block scope can only be accessed within the block {} within which it is defined.
+  
+Scope is a one way street-- you can only access variables from parent functions, blocks, etc.
+
+Outside of blocks, the declaractions let, var, and const are quite similar in how they operate in terms of scope.
+
+Within blocks, however, variables declared with let and const provide block scope. Variables declared with var, however, cannot 
+have block scope.
+
