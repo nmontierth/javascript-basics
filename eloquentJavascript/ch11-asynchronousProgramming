@@ -1,0 +1,116 @@
+Synchronous programming model-- things happen one at a time.
+Asynchronous programming model-- multiple things happen at the same time.
+
+To easy visualize the difference between the two, consider a program that fetches two resources from the network and then combines the 
+results. 
+  A synchronous model with a single thread of control will find the fetch the first resource, fetch the second, and then combine the 
+  results.
+  A synchronous model with two threads of control will simultaneously fetch both resources, both will wait for their results to come back 
+  and they will combine the results.
+  In an asynchronous model, starting a network action will cause a split in the timeline. The program that initiated the action will 
+  continue to run while the action will happen alongside it, notifying when it is finished.
+
+Threads are a context of execution affected by control flow (function call, loop, goto). They are often scheduled according to some 
+prioritization scheme as demonstrated above. 
+
+JAVASCRIPT IS A SINGLE-THREADED PROGRAMMING LANGUAGE. THUS, ASYNCHRONOUS MODELS MUST BE EXPLICITY DEFINED IF YOU WANT TO PERFORM 
+ACTIONS SIMULTANEOUSLY.
+
+Examples of asynchonous models -- Callbacks, Event Loops
+
+CALLBACKS
+  One approach to asynchronous programming.
+  Callback functions are functions that are called after an action finished. The name "callback" is not very intuitive. I prefer to 
+  think of callback functions as "call after functions", meaning the function is called after an action is completed.
+  
+  An example of a callback function: setTimeout()
+      setTimeout(() => console.log("Tick"), 500);
+    This function will wait 500 milliseconds (action), continue running the rest of the program, and then call the function which logs 
+    "Tick" in the console.
+    
+PROMISES
+  Promises were made to simplify some form of callbacks. A promise in real life consists of a few things:
+    1) A commitment to something
+    2) A response when that commitment is fulfilled
+    3) A response when that commitment is failed
+   
+   For example, I could say I promise to bring Oreos tonight for the party. If I bring Oreos, the response is "Wow, what a cool guy, 
+   he brought Oreos". If I fail to bring Oreos, the response would be "What are we supposed to do with all this milk?". Let's make 
+   this a little more complex though. What if instead of Oreos, I brought Tres Leches from this boujee spanish restaurant.
+   
+  A promise can be created using a constructor. It contains a resolve and reject function. These functions can be called with then (resolve) and catch (reject).
+    let broughtOreos = true;
+    let broughtTresLeches = false;
+    
+    function partyDessertPromise () {
+      return new Promise((resolve, reject) => {
+        if (!broughtOreos && !broughtTresLeches) {
+          reject({
+            dessert: 'none',
+            message: 'What are we supposed to do with all this milk?'
+          });
+        }
+        else if (broughtTresLeches && !broughtOreos) {
+          resolve({
+            dessert: 'Tres Leches',
+            message: 'Woah! What cool guy, he brought '
+          });
+        }
+        else if (broughtOreos && !broughtTresLeches) {
+          resolve({
+            dessert: 'Oreos',
+            message: 'Woah! What cool guy, he brought '
+          });
+        }
+        else {
+          resolve({
+            dessert: 'Oreos and Tres Leches',
+            message: 'Woah! This guy is the best! He brought '
+          });
+        }
+      });
+    }
+    
+    partyDessertPromise().then((success) => {
+      console.log(success.message + success.dessert);
+    }).catch((error) => {
+      console.log(error.message + ' As for desserts, we have ' + error.dessert);
+    });
+    
+FAILURE
+  Regular JS computations deal with failure by throwing an exception. Asynchronous computations need something like that, but it is 
+  extremely difficult to ensure failures are properly reported to callbacks.
+  
+  Widely used convention for failure in callbacks -- callback(fail, success) {}. These callback functions must check whether an 
+  exception was recieved or raised by a function that it called. This is difficult.
+  
+  Because of this, Promises provide an easier alternative to dealing with failure.
+  
+NETWORKS
+  Transmission failures are random and often can be addressed by retrying the request. It's useful to use a setTimeout() to have a 
+  request attempt itself n times and timeout if it fails everytime.
+
+CONCURRENCY AND THE EVENT LOOP
+  
+
+
+
+  
+
+    
+    
+ 
+      
+   
+   
+   
+   
+   
+   
+    
+  
+    
+      
+  
+    
+  
